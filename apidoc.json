@@ -1,0 +1,8 @@
+{
+    "name": "REST API documentation",
+    "version": "1.0.0",
+    "description": "Documenting APIs demo",
+    "template": {
+        "forceLanguage": "en"
+    }
+}
