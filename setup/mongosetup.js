@@ -2,10 +2,13 @@ const db = require("./../app/models");
 const dbConfig = require("./../app/config/dbConfig");
 const Role = db.role;
 
+//for local database
+//const uri = `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`;
 
-
+// for mongodb atlas
+const uri = "mongodb+srv://root:root@cluster0.cir6m.mongodb.net/demo_mongoose";
 db.mongoose
-  .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
+    .connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
@@ -17,7 +20,6 @@ db.mongoose
     console.error("Connection error", err);
     process.exit();
   });
-
 
 
 function initial() {
