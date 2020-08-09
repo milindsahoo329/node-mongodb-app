@@ -1,5 +1,215 @@
 define({ "api": [
   {
+    "type": "get",
+    "url": "/api/agency/findByTotal",
+    "title": "find agency with highest total bill",
+    "group": "Agency",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "agentName",
+            "description": "<p>name of the user</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "clientName",
+            "description": "<p>clients of the agency</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "totalBill",
+            "description": "<p>Total Bill from the clients</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Required Details",
+          "content": "HTTP/1.1 200 OK\n{\n   \"agentName\": \"Agency 2\",\n   \"clientName\": [\n       \"Mr. A\"\n   ],\n   \"totalBill\": 200\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Register error",
+          "content": "HTTP/1.1 500 Internal Server Error",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./app/routes/agencyRoutes.js",
+    "groupTitle": "Agency",
+    "name": "GetApiAgencyFindbytotal"
+  },
+  {
+    "type": "post",
+    "url": "/api/agency/add",
+    "title": "Add",
+    "group": "Agency",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Agency Name</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "address1",
+            "description": "<p>Agency address 1</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "address2",
+            "description": "<p>Agency address 2</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "state",
+            "description": "<p>Name of State</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "city",
+            "description": "<p>Name of city</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>Contact number</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Array",
+            "optional": false,
+            "field": "clients",
+            "description": "<p>Information of clients</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Input",
+          "content": "{\n\t\"name\":\"Agency 2\",\n\t\"address1\":\"MG Road\",\n\t\"address2\":\"SB Road\",\n\t\"state\":\"Maharashtra\",\n\t\"city\":\"Pune\",\n\t\"phone\":\"9000090000\",\n\t\"clients\":[{\n\t\t\"name\":\"Mr. A\",\n\t\t\"email\":\"mra@xyz.com\",\n\t\t\"phone\":\"8080808081\",\n\t\t\"total_bill\":200\n\t}]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Array",
+            "optional": false,
+            "field": "clients",
+            "description": "<p>Information of clients</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Agency Name</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "address1",
+            "description": "<p>Agency address 1</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "address2",
+            "description": "<p>Agency address 2</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "state",
+            "description": "<p>Name of State</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "city",
+            "description": "<p>Name of city</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>Contact number</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "createdAt",
+            "description": "<p>entry creation data in database</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "updatedAt",
+            "description": "<p>entry updation data in database</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Agency Details",
+          "content": "HTTP/1.1 200 OK\n{\n  \"clients\": [\n     \"5f2f64307f39b75dd057232c\"\n  ],\n  \"_id\": \"5f2f64307f39b75dd057232b\",\n  \"name\": \"Agency 2\",\n  \"address1\": \"MG Road\",\n  \"address2\": \"SB Road\",\n  \"state\": \"Maharashtra\",\n  \"city\": \"Pune\",\n  \"phone\": \"9000090000\",\n  \"createdAt\": \"2020-08-09T02:49:20.718Z\",\n  \"updatedAt\": \"2020-08-09T02:49:20.748Z\",\n  \"__v\": 0\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Register error",
+          "content": "HTTP/1.1 500 Internal Server Error",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./app/routes/agencyRoutes.js",
+    "groupTitle": "Agency",
+    "name": "PostApiAgencyAdd"
+  },
+  {
     "type": "post",
     "url": "/api/auth/signin",
     "title": "Signin to get token",

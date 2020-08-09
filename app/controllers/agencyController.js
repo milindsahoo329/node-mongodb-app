@@ -54,7 +54,7 @@ module.exports = {
             }            
           }]).sort({total:-1}).limit(1);
 
-          console.table(findMaxTotalBill);
+        //  console.table(findMaxTotalBill);
 
         let result = {};
 
