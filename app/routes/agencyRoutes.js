@@ -85,6 +85,13 @@ module.exports = function(app) {
  *     }
  * @apiErrorExample {json} Register error
  *    HTTP/1.1 500 Internal Server Error
+ * @apiErrorExample {json} Validation error
+ *    HTTP/1.1 422 Unprocessable Entity
+ *    {
+ *      "status": "error",
+ *      "message": "Invalid request data",
+ *       "data": { }
+ *     }
  */
   
   app.get("/api/agency/findByTotal", [authJwt.verifyToken], controller.findOneByTotalAggregate);
