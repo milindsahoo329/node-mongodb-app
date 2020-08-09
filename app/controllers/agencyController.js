@@ -1,11 +1,33 @@
+const Joi = require('joi');
 const db = require("../models");
 const Agency = db.agency;
 const Client = db.client;
 
-module.exports = {
+module.exports = {    
 
     create : async (req, res) =>{
-        const { name, address1, address2, state, city, phone, clients } = req.body;
+
+        const schema = Joi.object().keys({
+            name: Joi.string().required(),
+            address1: Joi.string().required(),
+            address2: Joi.string(),
+            phone: Joi.string().required().length(10).regex(/^\d+$/),
+            state: Joi.string().required(),
+            city: Joi.string().required(),
+            clients: Joi.array()
+        });
+    
+        const validation = await schema.validate(req.body);
+
+        if (validation.error) {
+            res.status(422).json({
+                status: 'error',
+                message: 'Invalid request data',
+                data: validation.error
+            });
+        } else {
+
+            const { name, address1, address2, state, city, phone, clients } = req.body;
         Agency.create({
             name, 
             address1, 
@@ -39,7 +61,9 @@ module.exports = {
 
             });                
 
-        });         
+        });   
+
+        }              
         
     },
 
