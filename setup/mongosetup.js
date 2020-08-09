@@ -3,10 +3,10 @@ const dbConfig = require("./../app/config/dbConfig");
 const Role = db.role;
 
 //for local database
-//const uri = `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`;
+const uri = `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`;
 
 // for mongodb atlas
-const uri = "mongodb+srv://root:root@cluster0.cir6m.mongodb.net/demo_mongoose";
+//const uri = "mongodb+srv://root:root@cluster0.cir6m.mongodb.net/demo_mongoose";
 db.mongoose
     .connect(uri, {
     useNewUrlParser: true,

@@ -1,3 +1,4 @@
+const Joi = require('joi');
 const db = require("../models");
 const Client = db.client;
 
@@ -5,22 +6,46 @@ module.exports = {
 
     // The client update can update all the fields except for the agency id
 
-    update : async (req, res) =>{
-        const { id, name, email, phone, total_bill, agency } = req.body;
+    update: async (req, res) => {
 
-        const clientById = await Client.findOne({
-            _id : id,
-            agency : agency
+        const schema = Joi.object().keys({
+            id: Joi.string().required(),
+            name: Joi.string().required(),
+            email: Joi.string().email().required(),
+            phone: Joi.string().required().length(10).regex(/^\d+$/),
+            total_bill: Joi.number().required(),
+            agency: Joi.string().required()
         });
 
-        clientById.name = name;
-        clientById.email = email;
-        clientById.phone = phone;
-        clientById.total_bill = total_bill;
+        const validation = await schema.validate(req.body);
 
-        await clientById.save();
+        if (validation.error) {
+            res.status(422).json({
+                status: 'error',
+                message: 'Invalid request data',
+                data: validation.error
+            });
+        } else {
 
-        return res.status(200).send({success:true});
+            const { id, name, email, phone, total_bill, agency } = req.body;
+
+            const clientById = await Client.findOne({
+                _id: id,
+                agency: agency
+            });
+
+            clientById.name = name;
+            clientById.email = email;
+            clientById.phone = phone;
+            clientById.total_bill = total_bill;
+
+            await clientById.save();
+
+            return res.status(200).send({ success: true });
+
+        }
+
+
     }
 
 }
